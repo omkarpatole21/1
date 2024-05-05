@@ -1,40 +1,32 @@
-public class Calculator {
-    public integer firstNumber { get; set; }
-    public integer secondNumber { get; set; }
-    public integer result { get; set;}
+public class ss {
+     public static Integer add(Integer num1, Integer num2) {
+        return num1 + num2;        
+    }
     
-    public void Addition(){
-        result = firstNumber + secondNumber;
+    public static Integer sub(Integer num1, Integer num2){
+        return num1 - num2;      
     }
-    public void Subtraction(){
-        result = firstNumber - secondNumber;
+    
+    public static Integer mul(Integer num1, Integer num2){
+        return num1 * num2;      
     }
-    public void Multiplication(){
-        result = firstNumber * secondNumber;
+    
+    public static Integer div(Integer num1, Integer num2){
+        return num1 / num2;      
     }
-    public void Division(){
-        result = firstNumber / secondNumber;
-    }    
 
 }
 
-// vfp file
+// run
 
-<apex:page controller="Calculator"> 
-    <apex:sectionHeader title="Calculator"/>
-    <apex:form >
-        <apex:pageBlock title="Simple Calculator">
-           <apex:pageBlockButtons location="bottom">
-              <apex:commandButton value="Addition" action="{!Addition}" reRender="res"/>
-               <apex:commandButton value="Subtraction" action="{!Subtraction}" reRender="res"/>
-               <apex:commandButton value="Multiplication" action="{!Multiplication}" reRender="res"/>
-               <apex:commandButton value="Division" action="{!Division}" reRender="res"/>                
-            </apex:pageBlockButtons>
-            <apex:pageBlockSection title="Calculator">
-                <apex:inputText label="Enter First Number" html-placeholder="First Number" value="{!firstNumber}"/>
-                <apex:inputText label="Enter Second Number" html-placeholder="Second Number" value="{!secondNumber}"/>
-                <apex:inputText label="Result" value="{!result}" id="res"/>
-            </apex:pageBlockSection>
-        </apex:pageBlock>
-    </apex:form>
-</apex:page>
+Integer add = ss.add(5,6);
+system.debug('addition =' + add);
+
+Integer sub = ss.sub(5,9);
+system.debug('Substraction =' + sub);
+
+Integer mul = ss.mul(5,5);
+system.debug('Multipication =' + mul);
+
+Integer div = ss.div(12,6);
+system.debug('division =' + div);
