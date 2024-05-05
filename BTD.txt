@@ -1,0 +1,21 @@
+public class BToD {
+     public static Decimal binaryToDecimal(String binary) {
+        Decimal dec = 0;
+        Integer power = binary.length() - 1;
+        
+        for(Integer i = 0; i < binary.length(); i++) {
+            if(binary.substring(i, i+1) == '1') {
+                dec += Math.pow(2, power);
+            }
+            power--;
+        }
+        
+        return dec;
+    }
+
+}
+
+// for running
+
+Decimal result = BToD.binaryToDecimal('1011');
+System.debug('Decimal result: ' + result);

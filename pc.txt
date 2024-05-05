@@ -1,0 +1,7 @@
+public class PercentageCalculator{
+    public static void calculatePercentage(Integer part) {
+        Integer total=500;
+        Integer percentage = (part * 100) / total;
+        System.debug('The percentage is: ' + percentage);
+    }
+}
