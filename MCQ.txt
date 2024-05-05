@@ -1,0 +1,44 @@
+public with sharing class MCQController {
+   public List<String> questions { get; set; }
+    public Map<String, List<String>> options { get; set; }
+    public Map<String, String> selectedOptions { get; set; }
+    
+    public MCQController() {
+        // Sample questions and options
+        questions = new List<String>{'What is the capital of France?', 'What is 2 + 2?'};
+        options = new Map<String, List<String>>{
+            'What is the capital of France?' => new List<String>{'Paris', 'London', 'Berlin', 'Rome'},
+            'What is 2 + 2?' => new List<String>{'3', '4', '5', '6'}
+        };
+        selectedOptions = new Map<String, String>();
+    }
+    
+    public void selectOption(String question, String option) {
+        selectedOptions.put(question, option);
+    }
+    
+    public void submitAnswers() {
+        // Process submitted answers
+        for (String question : questions) {
+            String selectedOption = selectedOptions.get(question);
+            System.debug('Question: ' + question + ', Selected Option: ' + selectedOption);
+        }
+        // Redirect to a thank you page or result page
+    }
+    
+    // Method to print questions and selected options
+    public void printQuestionsAndOptions() {
+        for (String question : questions) {
+            System.debug('Question: ' + question);
+            System.debug('Options: ' + String.join(options.get(question), ', '));
+            System.debug('Selected Option: ' + selectedOptions.get(question));
+        }
+    }
+}
+
+// run
+
+MCQController mcqController = new MCQController();
+mcqController.selectOption('What is the capital of France?', 'Paris');
+mcqController.selectOption('What is 2 + 2?', '4');
+mcqController.printQuestionsAndOptions();
