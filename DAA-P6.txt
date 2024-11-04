@@ -1,0 +1,57 @@
+import random
+import time
+
+# Deterministic QuickSort
+def deterministic_partition(arr, low, high):
+    pivot = arr[high]  
+    i = low - 1  
+
+    for j in range(low, high):
+        if arr[j] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]  # Swap
+
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+def deterministic_quick_sort(arr, low, high):
+    if low < high:
+        pi = deterministic_partition(arr, low, high)
+        deterministic_quick_sort(arr, low, pi - 1)
+        deterministic_quick_sort(arr, pi + 1, high)
+
+def randomized_partition(arr, low, high):
+    rand_pivot = random.randint(low, high)
+    arr[high], arr[rand_pivot] = arr[rand_pivot], arr[high] 
+    return deterministic_partition(arr, low, high)
+
+def randomized_quick_sort(arr, low, high):
+    if low < high:
+        pi = randomized_partition(arr, low, high)
+        randomized_quick_sort(arr, low, pi - 1)
+        randomized_quick_sort(arr, pi + 1, high)
+
+def analyze_sorting_algorithms(arr):
+    arr_deterministic = arr.copy()
+    arr_randomized = arr.copy()
+
+    start_time = time.time()
+    deterministic_quick_sort(arr_deterministic, 0, len(arr_deterministic) - 1)
+    deterministic_time = time.time() - start_time
+
+    start_time = time.time()
+    randomized_quick_sort(arr_randomized, 0, len(arr_randomized) - 1)
+    randomized_time = time.time() - start_time
+
+    print("Sorted array (Deterministic QuickSort):", arr_deterministic)
+    print("Time taken by Deterministic QuickSort:", deterministic_time, "seconds")
+
+    print("Sorted array (Randomized QuickSort):", arr_randomized)
+    print("Time taken by Randomized QuickSort:", randomized_time, "seconds")
+
+if __name__ == "__main__":
+    n = int(input("Enter number of elements: "))
+    arr = [random.randint(1, 1000) for _ in range(n)] 
+
+    print("\nOriginal array:", arr)
+    analyze_sorting_algorithms(arr)

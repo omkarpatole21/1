@@ -1,0 +1,62 @@
+import heapq
+
+class Node:
+    def __init__(self, freq, symbol, left=None, right=None):
+        self.freq = freq
+        self.symbol = symbol
+        self.left = left
+        self.right = right
+        self.huff = ""
+
+    def __lt__(self, other):
+        return self.freq < other.freq
+
+def printNodes(node, val=""):
+    newval = val + node.huff
+
+    # If a leaf node
+    if not node.left and not node.right:
+        print(f"{node.symbol} -> {newval}")
+        encoded_lengths[node.symbol] = len(newval)
+    else:
+        if node.left:
+            printNodes(node.left, newval)
+        if node.right:
+            printNodes(node.right, newval)
+
+num_chars = int(input("Enter number of characters: "))
+chars = []
+freqs = []
+
+for i in range(num_chars):
+    char = input(f"Enter character {i+1}: ")
+    freq = int(input(f"Enter frequency of character {char}: "))
+    chars.append(char)
+    freqs.append(freq)
+
+nodes = []
+for i in range(len(chars)):
+    heapq.heappush(nodes, Node(freqs[i], chars[i]))
+
+while len(nodes) > 1:
+    left = heapq.heappop(nodes)
+    right = heapq.heappop(nodes)
+
+    left.huff = "0"
+    right.huff = "1"
+    
+    newnode = Node(left.freq + right.freq, left.symbol + right.symbol, left, right)
+    heapq.heappush(nodes, newnode)
+
+total_size_before = sum(freqs) * 8
+
+encoded_lengths = {}
+
+print("\nHuffman Codes:")
+
+printNodes(nodes[0])
+
+total_size_after = sum(freqs[i] * encoded_lengths[chars[i]] for i in range(num_chars))
+
+print("\nTotal size before encoding:", total_size_before, "bits")
+print("Total size after encoding:", total_size_after, "bits")
